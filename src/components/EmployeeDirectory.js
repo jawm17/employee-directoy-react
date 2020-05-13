@@ -5,10 +5,10 @@ import Col from "./Col";
 import Card from "./Card";
 import SearchForm from "./SearchForm";
 import FilterForm from "./FilterForm";
-import FriendCard from "./FriendCard";
+import EmployeeCard from "./EmployeeCard";
 import employees from "./employees.json"
 
-class OmdbContainer extends Component {
+class EmployeeDirectory extends Component {
   state = {
     employees: employees,
     search: "",
@@ -81,7 +81,7 @@ class OmdbContainer extends Component {
             <Card
               heading="Employees">
               {this.state.employees.map(friend => (
-                <FriendCard
+                <EmployeeCard
                   removeFriend={this.removeFriend}
                   id={friend.id}
                   key={friend.id}
@@ -116,4 +116,4 @@ class OmdbContainer extends Component {
   }
 }
 
-export default OmdbContainer;
+export default EmployeeDirectory;
