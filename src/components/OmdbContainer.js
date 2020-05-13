@@ -26,14 +26,9 @@ class OmdbContainer extends Component {
 
   // When the form is submitted, search the OMDB API for the value of `this.state.search`
   handleFormSubmit = event => {
-    if (!this.state.search) {
-      console.log("empty");
-    }
-    else {
+    if (this.state.search) {
       event.preventDefault();
       let filteredArray = employees.filter(employee => employee.name === this.state.search);
-      console.log(filteredArray);
-      console.log(this.state.search);
       this.setState({
         employees: filteredArray
       });
@@ -50,8 +45,6 @@ class OmdbContainer extends Component {
 
   handleFilter = event => {
     event.preventDefault();
-    console.log(this.state.occupation);
-    console.log(this.state.location);
     if (this.state.occupation !== "Any") {
       let firstFilteredArray = employees.filter(employee => employee.occupation === this.state.occupation);
       if (this.state.location !== "Any") {
@@ -60,9 +53,24 @@ class OmdbContainer extends Component {
           employees: filteredArray,
           frontEndDevelopers: true
         });
+      } else {
+        this.setState({
+          employees: firstFilteredArray,
+          frontEndDevelopers: true
+        });
       }
+    } else if (this.state.location !== "Any") {
+      let filteredArray = employees.filter(employee => employee.location === this.state.location);
+      this.setState({
+        employees: filteredArray,
+        frontEndDevelopers: true
+      });
+    } else {
+      this.setState({
+        employees: employees,
+        frontEndDevelopers: true
+      });
     }
-
   }
 
   render() {
