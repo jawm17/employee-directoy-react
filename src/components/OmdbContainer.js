@@ -12,18 +12,13 @@ class OmdbContainer extends Component {
   state = {
     employees: employees,
     search: "",
-    frontEndDevelopers: false,
-    dataScientists: false,
-    computerSystemsEngineer: false
+    occupation: "Any",
+    location: "Any"
   };
-
-  // When this component mounts, search for the movie "The Matrix"
-  componentDidMount() {
-  }
 
   handleInputChange = event => {
     const value = event.target.value;
-    const name = event.target.name;
+    const name = event.target.id;
     this.setState({
       [name]: value
     });
@@ -45,26 +40,29 @@ class OmdbContainer extends Component {
     }
   };
 
-  handleCheckBox = event => {
-    if (event.target.value === "frontEndDevelopers") {
-      if (!this.state.frontEndDevelopers) {
-        let filteredArray = employees.filter(employee => employee.occupation === "Front End Developer");
+  handleFilterChange = event => {
+    const name = event.target.id;
+    const value = event.target.value
+    this.setState({
+      [name]: value
+    });
+  }
+
+  handleFilter = event => {
+    event.preventDefault();
+    console.log(this.state.occupation);
+    console.log(this.state.location);
+    if (this.state.occupation !== "Any") {
+      let firstFilteredArray = employees.filter(employee => employee.occupation === this.state.occupation);
+      if (this.state.location !== "Any") {
+        let filteredArray = firstFilteredArray.filter(employee => employee.location === this.state.location);
         this.setState({
           employees: filteredArray,
           frontEndDevelopers: true
         });
       }
-      else {
-        this.setState({
-          employees: employees,
-          frontEndDevelopers: false
-        });
-      }
     }
-    else if (event.target.value === "frontEndDevelopers")
-    {
 
-    }
   }
 
   render() {
@@ -99,7 +97,8 @@ class OmdbContainer extends Component {
             <br></br>
             <Card heading="Filter">
               <FilterForm
-                handleCheckBox={this.handleCheckBox}
+                handleFilterChange={this.handleFilterChange}
+                handleFilter={this.handleFilter}
               />
             </Card>
           </Col>
