@@ -12,7 +12,9 @@ class OmdbContainer extends Component {
   state = {
     employees: employees,
     search: "",
-    livesInBikiniBottom: false
+    frontEndDevelopers: false,
+    dataScientists: false,
+    computerSystemsEngineer: false
   };
 
   // When this component mounts, search for the movie "The Matrix"
@@ -44,17 +46,18 @@ class OmdbContainer extends Component {
   };
 
   handleCheckBox = event => {
-    if (event.target.value === "bikini") {
-      if (!this.state.livesInBikiniBottom) {
-        let filteredArray = employees.filter(employee => employee.location === "Bikini Bottom");
+    if (event.target.value === "frontEndDevelopers") {
+      if (!this.state.frontEndDevelopers) {
+        let filteredArray = employees.filter(employee => employee.occupation === "Front End Developer");
         this.setState({
           employees: filteredArray,
-          livesInBikiniBottom: true
+          frontEndDevelopers: true
         });
       }
       else {
         this.setState({
-          employees: employees
+          employees: employees,
+          frontEndDevelopers: false
         });
       }
     }
