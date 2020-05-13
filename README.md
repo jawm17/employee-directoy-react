@@ -3,7 +3,7 @@
     
 ## Description
 
-This project uses react to display employees based on user inputs. The user is able to sort the table by employee name. They can also filter employees by occupation and location.
+This project uses react js to manipulate data based on user inputs. The employee directory can be filtered by employee name, occupation, and location.
     
     
 ## Usage 
