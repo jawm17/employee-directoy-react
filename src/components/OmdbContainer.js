@@ -5,25 +5,19 @@ import Col from "./Col";
 import Card from "./Card";
 import SearchForm from "./SearchForm";
 import FilterForm from "./FilterForm";
-import MovieDetail from "./MovieDetail";
-import API from "../utils/API";
+import FriendCard from "./FriendCard";
+import employees from "./employees.json"
 
 class OmdbContainer extends Component {
   state = {
-    result: {},
+    employees: employees,
     search: ""
+
   };
 
   // When this component mounts, search for the movie "The Matrix"
   componentDidMount() {
-    this.searchMovies("The Matrix");
   }
-
-  searchMovies = query => {
-    API.search(query)
-      .then(res => this.setState({ result: res.data }))
-      .catch(err => console.log(err));
-  };
 
   handleInputChange = event => {
     const value = event.target.value;
@@ -35,9 +29,23 @@ class OmdbContainer extends Component {
 
   // When the form is submitted, search the OMDB API for the value of `this.state.search`
   handleFormSubmit = event => {
-    event.preventDefault();
-    this.searchMovies(this.state.search);
+    if (!this.state.search) {
+      console.log("empty");
+    }
+    else {
+      event.preventDefault();
+      let filteredArray = employees.filter(employee => employee.name === this.state.search);
+      console.log(filteredArray);
+      console.log(this.state.search);
+      this.setState({
+        employees: filteredArray
+      });
+    }
   };
+
+  handleCheckBox = event => {
+    console.log(event.target.value);
+  }
 
   render() {
     return (
@@ -45,19 +53,19 @@ class OmdbContainer extends Component {
         <Row>
           <Col size="md-8">
             <Card
-              heading={this.state.result.Title || "Search for a Movie to Begin"}
-            >
-              {this.state.result.Title ? (
-                <MovieDetail
-                  title={this.state.result.Title}
-                  src={this.state.result.Poster}
-                  director={this.state.result.Director}
-                  genre={this.state.result.Genre}
-                  released={this.state.result.Released}
+              heading="Employees">
+              {this.state.employees.map(friend => (
+                <FriendCard
+                  removeFriend={this.removeFriend}
+                  id={friend.id}
+                  key={friend.id}
+                  name={friend.name}
+                  image={friend.image}
+                  occupation={friend.occupation}
+                  location={friend.location}
                 />
-              ) : (
-                <h3>No Results to Display</h3>
-              )}
+              ))}
+
             </Card>
           </Col>
           <Col size="md-4">
@@ -71,9 +79,7 @@ class OmdbContainer extends Component {
             <br></br>
             <Card heading="Filter">
               <FilterForm
-                value={this.state.search}
-                handleInputChange={this.handleInputChange}
-                handleFormSubmit={this.handleFormSubmit}
+                handleCheckBox={this.handleCheckBox}
               />
             </Card>
           </Col>
