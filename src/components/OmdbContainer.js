@@ -11,8 +11,8 @@ import employees from "./employees.json"
 class OmdbContainer extends Component {
   state = {
     employees: employees,
-    search: ""
-
+    search: "",
+    livesInBikiniBottom: false
   };
 
   // When this component mounts, search for the movie "The Matrix"
@@ -44,7 +44,20 @@ class OmdbContainer extends Component {
   };
 
   handleCheckBox = event => {
-    console.log(event.target.value);
+    if (event.target.value === "bikini") {
+      if (!this.state.livesInBikiniBottom) {
+        let filteredArray = employees.filter(employee => employee.location === "Bikini Bottom");
+        this.setState({
+          employees: filteredArray,
+          livesInBikiniBottom: true
+        });
+      }
+      else {
+        this.setState({
+          employees: employees
+        });
+      }
+    }
   }
 
   render() {
