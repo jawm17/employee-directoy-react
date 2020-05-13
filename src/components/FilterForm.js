@@ -3,23 +3,23 @@ import React from "react";
 function FilterForm(props) {
   return (
     <form>
-      <div className="form-check">
-        <input className="form-check-input" type="checkbox" value="frontEndDevelopers" id="defaultCheck1" onChange={props.handleCheckBox}/>
-        <label className="form-check-label" htmlFor="defaultCheck1">
-          Front End Developers
-        </label>
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Occupation</label>
+        <select class="form-control" id="exampleFormControlSelect1">
+          <option>Any</option>
+          <option>Front End Developer</option>
+          <option>Data Scientist</option>
+          <option>Computer Systems Engineer</option>
+        </select>
       </div>
-      <div className="form-check">
-        <input className="form-check-input" type="checkbox" value="dataScientists" id="defaultCheck2" onChange={props.handleCheckBox} />
-        <label className="form-check-label" htmlFor="defaultCheck1">
-          Data Scientists
-        </label>
-      </div>
-      <div className="form-check">
-        <input className="form-check-input" type="checkbox" value="computerSystemsEngineers" id="defaultCheck2" onChange={props.handleCheckBox} />
-        <label className="form-check-label" htmlFor="defaultCheck1">
-        Computer Systems Engineers
-        </label>
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Location</label>
+        <select class="form-control" id="exampleFormControlSelect1">
+          <option>Any</option>
+          <option>Bikini Bottom</option>
+          <option>California</option>
+          <option>Hawaii</option>
+        </select>
       </div>
     </form>
   );
